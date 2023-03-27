@@ -39,7 +39,7 @@ type PostDetail = {
 };
 
 export default function Home() {
-  const postManagerContract = "0xc6679Fce2b1854565Ca52a7883d5f12B4e62BBB6"; //postManager smart contract address
+  const postManagerContract = "0x4068035ad62cc4fd5f07b94eab3c626dd4548e49"; //postManager smart contract address
 
   //variables
   const [token, setToken] = useState<string>("");
@@ -106,10 +106,9 @@ export default function Home() {
       //(2) call getPostsData function from contract
       const allPosts = await postManagerContractInstance.getPostsData(
         allPostsAddresses
-       );
+      );
       //(3) set latest cid using react set variable
       setLatestCid(allPosts.postCID);
-
       // declare new array
       let new_posts = [];
 
@@ -192,6 +191,7 @@ export default function Home() {
           },
         ];
         const buffer = Buffer.from(JSON.stringify(postObj));
+
         //(4) call web3.storage API function to store data on IPFS as JSON
         const files = [new File([buffer], "post.json")];
         const cid = await storage.put(files);
@@ -225,9 +225,10 @@ export default function Home() {
             imageCid,
             filename,
             {
-             gasLimit: 1200000,
+              gasLimit: 1200000,
             }
-           );
+          );
+
           // (6) wait for transaction to be mined
           await provider.waitForTransaction(hash);
           // (7) display alert message
@@ -409,9 +410,9 @@ export default function Home() {
           newCid,
           postData.postSCAddress,
           {
-           gasLimit: 1200000,
+            gasLimit: 1200000,
           }
-         );
+        );
         // (9) wait for transaction to be mined
         await provider.waitForTransaction(hash);
         // (10) display alert message
